@@ -6,19 +6,17 @@ userForm.loginFormCallback = data => {
     let result = ApiConnector.login(data, callback => console.log(callback));
     if (result.success) {
         location.reload();
-    } else (
-        let message = result.error;
-    setLoginErrorMessage(message);
-    )
+    } else {
+        setLoginErrorMessage(result.error);
+    }
 }
 
 userForm.registerFormCallback = data => {
     let result = ApiConnector.register(data, callback => console.log(callback));
     if (result.success) {
         location.reload();
-    } else (
-        let message = result.error;
-    setRegisterErrorMessage(message);
-    )
+    } else {
+        setLoginErrorMessage(result.error);
+    }
 }
 
