@@ -37,8 +37,22 @@ moneyManager.addMoneyCallback = (data) => {
     ApiConnector.addMoney(data, responce => {
         if (responce.success) {
             ProfileWidget.showProfile(responce.data);
-            moneyManager.setMessage(isSucces);
         }
     })
 }
 
+moneyManager.conversionMoneyCallback = (data) => {
+    ApiConnector.convertMoney(data, responce => {
+        if (responce.success) {
+            ProfileWidget.showProfile(responce.data);
+        }
+    })
+}
+
+moneyManager.sendMoneyCallback = (data) => {
+    ApiConnector.transferMoney(data, responce => {
+        if (responce.success) {
+            ProfileWidget.showProfile(responce.data);
+        }
+    })
+}
