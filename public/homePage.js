@@ -9,7 +9,6 @@ logoutButton.action = () => {
 }
 
 ApiConnector.current(responce => {
-    console.log(responce);
     if (responce.success) {
         ProfileWidget.showProfile(responce.data);
     }
@@ -19,7 +18,6 @@ const ratesBoard = new RatesBoard();
 
 function checkCurrency() {
     ApiConnector.getStocks(responce => {
-        console.log(responce);
         if (responce.success) {
             ratesBoard.clearTable();
             ratesBoard.fillTable(responce.data);
@@ -37,7 +35,9 @@ moneyManager.addMoneyCallback = (data) => {
     ApiConnector.addMoney(data, responce => {
         if (responce.success) {
             ProfileWidget.showProfile(responce.data);
+            moneyManager.setMessage(responce.success);
         }
+        moneyManager.setMessage(responce.success, responce.error);
     })
 }
 
@@ -56,3 +56,35 @@ moneyManager.sendMoneyCallback = (data) => {
         }
     })
 }
+
+const favoritesWidget = new FavoritesWidget();
+
+ApiConnector.getFavorites((responce) => {
+    console.log(responce);
+    if (responce.success) {
+        checkUserFavorites(responce.data);
+    }
+})
+
+favoritesWidget.addUserCallback = (data) => {
+    ApiConnector.addUserToFavorites(data, responce => {
+        console.log(responce);
+        if (responce.success) {
+            checkUserFavorites(responce.data);
+        }
+    })
+}
+
+favoritesWidget.removeUserCallback = (data) => {
+    ApiConnector.removeUserFromFavorites(data, responce => {
+        if (responce.success) {
+            checkUserFavorites(responce.data);
+        }
+    })
+}
+
+function checkUserFavorites(data) {
+    favoritesWidget.clearTable();
+    favoritesWidget.fillTable(data);
+    moneyManager.updateUsersList(data);
+};
