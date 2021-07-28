@@ -36,9 +36,10 @@ moneyManager.addMoneyCallback = (data) => {
         if (responce.success) {
             ProfileWidget.showProfile(responce.data);
             const message = 'Операция выполнена успешно';
-            moneyManager.setMessage(true, message);
+            moneyManager.setMessage(responce.success, message);
+        } else {
+            moneyManager.setMessage(responce.success, responce.error);
         }
-        moneyManager.setMessage(responce.success, responce.error);
     })
 }
 
@@ -46,6 +47,10 @@ moneyManager.conversionMoneyCallback = (data) => {
     ApiConnector.convertMoney(data, responce => {
         if (responce.success) {
             ProfileWidget.showProfile(responce.data);
+            const message = 'Операция выполнена успешно';
+            moneyManager.setMessage(responce.success, message);
+        } else {
+            moneyManager.setMessage(responce.success, responce.error);
         }
     })
 }
@@ -54,6 +59,10 @@ moneyManager.sendMoneyCallback = (data) => {
     ApiConnector.transferMoney(data, responce => {
         if (responce.success) {
             ProfileWidget.showProfile(responce.data);
+            const message = 'Операция выполнена успешно';
+            moneyManager.setMessage(responce.success, message);
+        } else {
+            moneyManager.setMessage(responce.success, responce.error);
         }
     })
 }
@@ -72,6 +81,10 @@ favoritesWidget.addUserCallback = (data) => {
         console.log(responce);
         if (responce.success) {
             checkUserFavorites(responce.data);
+            const message = 'Пользователь добавлен';
+            favoritesWidget.setMessage(responce.success, message);
+        } else {
+            favoritesWidget.setMessage(responce.success, responce.error);
         }
     })
 }
@@ -80,6 +93,10 @@ favoritesWidget.removeUserCallback = (data) => {
     ApiConnector.removeUserFromFavorites(data, responce => {
         if (responce.success) {
             checkUserFavorites(responce.data);
+            const message = 'Пользователь удалён';
+            favoritesWidget.setMessage(responce.success, message);
+        } else {
+            favoritesWidget.setMessage(responce.success, responce.error);
         }
     })
 }
