@@ -35,7 +35,8 @@ moneyManager.addMoneyCallback = (data) => {
     ApiConnector.addMoney(data, responce => {
         if (responce.success) {
             ProfileWidget.showProfile(responce.data);
-            moneyManager.setMessage(responce.success);
+            const message = 'Операция выполнена успешно';
+            moneyManager.setMessage(true, message);
         }
         moneyManager.setMessage(responce.success, responce.error);
     })
